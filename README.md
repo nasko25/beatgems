@@ -1,3 +1,3 @@
 # beatgems
-An AI beats library
+An AI-generated beats library
 
