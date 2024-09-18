@@ -26,15 +26,27 @@ source ~/Documents/python-envs/beatgems/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-<mark>TODO: some configuration steps?</mark>
-
 4. Run the fine tuning script
 
 ```bash
 python fine_tune.py
 ```
 
-5. Don't forget to deactivate the venv when done
+5. Export the model by first acquiring the model's configuration signature with:
+
+```bash
+dora info solver=musicgen/musicgen_base_32khz_custom.yaml model/lm/model_scale=small continue_from=//pretrained/facebook/musicgen-small conditioner=text2music dset=audio/custom
+```
+
+This command should be basically the same as the `dora run` command used in `fine_tune.py`. If you change it for any reason, or change the yaml config, you need to alter this info command as well.
+
+After running the command, set the signature it returns in `export_model.py`, and run:
+
+```bash
+python export_model.py
+```
+
+6. Don't forget to deactivate the venv when done
 
 ```bash
 deactivate
