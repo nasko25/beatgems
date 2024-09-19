@@ -89,6 +89,7 @@ except OSError as e:
         raise
 
 for entry in data_entries:
+    dir_name = f"./data/{entry.name}"
     # skip download and extract if folder exists
     # if os.path.isdir(f"./data/{entry.name}"):
     #     continue
@@ -96,8 +97,13 @@ for entry in data_entries:
     gdown.download(entry.url, f"{entry.get_file_name()}.zip")
 
     with ZipFile(f"./{entry.get_file_name()}.zip", 'r') as zip_file:
-        zip_file.extractall(f"./data/{entry.name}")
+        zip_file.extractall(dir_name)
     os.remove(f"./{entry.get_file_name()}.zip")
+
+    # delete all files that are not mp3 audio files
+    for file in os.listdir(dir_name):
+        if not file.endswith(".mp3"):
+            os.remove(os.path.join(dir_name, file))
 
     subprocess.check_call([sys.executable, "-m", "audiocraft.data.audio_dataset", f"data/{entry.name}", f"egs/tmp/data_{entry.get_file_name()}.jsonl"])
 
