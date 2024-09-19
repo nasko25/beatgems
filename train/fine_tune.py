@@ -6,7 +6,7 @@ import shutil
 import subprocess
 import sys
 import json
-import os
+import os, errno
 
 class DatasetEntry:
     def __init__(self, url, name, artist):
@@ -59,7 +59,11 @@ except:
 shutil.copyfile("config/musicgen_base_32khz_custom.yaml", "audiocraft/config/solver/musicgen/musicgen_base_32khz_custom.yaml")
 
 os.chdir("audiocraft/")
-os.mkdir("data/")
+try:
+    os.mkdir("data/")
+except OSError as e:
+    if e.errno != errno.EEXIST: # errno.EEXIST = file or directory exists
+        raise
 
 with open("config/dset/audio/custom.yaml", 'w') as f:
     f.write("""# @package __global__
@@ -78,7 +82,11 @@ subprocess.check_call([sys.executable, "-m", "pip", "install", "torch==2.1.0"])
 subprocess.check_call([sys.executable, "-m", "pip", "install", "setuptools wheel"])
 subprocess.check_call([sys.executable, "-m", "pip", "install", "-e", "."])
 
-os.remove("egs/custom/data.jsonl")
+try:
+    os.remove("egs/custom/data.jsonl")
+except OSError as e:
+    if e.errno != errno.ENOENT: # errno.ENOENT = no such file or directory
+        raise
 
 for entry in data_entries:
     gdown.download(entry.name, f"{entry.get_file_name()}.zip")
