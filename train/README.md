@@ -51,3 +51,19 @@ python export_model.py
 ```bash
 deactivate
 ```
+
+### Troubleshooting
+
+#### python version
+
+The official audiocraft documentation states that only python 3.9 is supported. I did not run into issues related to python version in kaggle where python was version 3.10. But for any unexpected issues try changing the python version to one of these two.
+
+#### GPU memory
+
+Fine-tuning the smallest model only worked with two GPUs with 30GB memory in total in kaggle. Anything smaller was not enough memory.
+
+Additionally, I had to set `batch_size` to 2, otherwise I was getting a not enough memory error as well.
+
+#### division by zero error
+
+At the beginning I was getting a cosine division by zero error after the training step had just ended and it went to evaluation. I fixed it by decreasing the `warmup` value in the cosine scheduler config.
