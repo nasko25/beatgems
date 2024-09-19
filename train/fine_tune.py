@@ -89,7 +89,11 @@ except OSError as e:
         raise
 
 for entry in data_entries:
-    gdown.download(entry.name, f"{entry.get_file_name()}.zip")
+    # skip download and extract if folder exists
+    # if os.path.isdir(f"./data/{entry.name}"):
+    #     continue
+
+    gdown.download(entry.url, f"{entry.get_file_name()}.zip")
 
     with ZipFile(f"./{entry.get_file_name()}.zip", 'r') as zip_file:
         zip_file.extractall(f"./data/{entry.name}")
