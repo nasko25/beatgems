@@ -43,7 +43,7 @@ python fine_tune.py
 nohup python fine_tune.py > fine_tune.log 2> fine_tune.err < /dev/null &
 ```
 
-5. Export the model by first acquiring the model's configuration signature with:
+5. Export the model by first acquiring the model's configuration signature with from the `audiocraft/` directory:
 
 ```bash
 dora info solver=musicgen/musicgen_base_32khz_custom.yaml model/lm/model_scale=small continue_from=//pretrained/facebook/musicgen-small conditioner=text2music dset=audio/custom
@@ -51,11 +51,13 @@ dora info solver=musicgen/musicgen_base_32khz_custom.yaml model/lm/model_scale=s
 
 This command should be basically the same as the `dora run` command used in `fine_tune.py`. If you change it for any reason, or change the yaml config, you need to alter this info command as well.
 
-After running the command, set the signature it returns in `export_model.py`, and run:
+After running the command run:
 
 ```bash
 python export_model.py
 ```
+
+You can also set the signature (can find it from the `dora info`) command in `export_model.py` directly to be used every time.
 
 6. Don't forget to deactivate the venv when done
 
