@@ -37,6 +37,13 @@ def generate_json_metadata(dataset_name, file_name, artist):
         with open(f"./data/{dataset_name}/" + filename[:-4] + ".json", "w") as json_file:
             json_file.write(json.dumps(file_info))
 
+def mkdir(dir):
+    try:
+        os.mkdir(dir)
+    except OSError as e:
+        if e.errno != errno.EEXIST: # errno.EEXIST = file or directory exists
+            raise
+
 parser = argparse.ArgumentParser(
     prog='fine_tune',
     description='audiocraft fine-tuning script',
@@ -73,11 +80,7 @@ except:
 shutil.copyfile("config/musicgen_base_32khz_custom.yaml", "audiocraft/config/solver/musicgen/musicgen_base_32khz_custom.yaml")
 
 os.chdir("audiocraft/")
-try:
-    os.mkdir("data/")
-except OSError as e:
-    if e.errno != errno.EEXIST: # errno.EEXIST = file or directory exists
-        raise
+mkdir("data/")
 
 with open("config/dset/audio/custom.yaml", 'w') as f:
     f.write("""# @package __global__
@@ -102,6 +105,7 @@ except OSError as e:
     if e.errno != errno.ENOENT: # errno.ENOENT = no such file or directory
         raise
 
+mkdir("egs/custom/")
 for entry in data_entries:
     dir_name = f"./data/{entry.name}"
     # skip download and extract if folder exists
@@ -124,10 +128,9 @@ for entry in data_entries:
     generate_json_metadata(entry.name, entry.get_file_name(), entry.artist)
 
     # concatenate all existing dataset information in a single data.jsonl file that will be used by dora
-    with open("egs/custom/data.jsonl", "a") as data, open(f"egs/tmp/data_{entry.get_file_name()}.jsonl", "w") as ds:
+    with open("egs/custom/data.jsonl", "a") as data, open(f"egs/tmp/data_{entry.get_file_name()}.jsonl", "r") as ds:
         data.write(ds.read())
 
-    shutil.move(f"data/{entry.name}", "data/")
 
 env = os.environ.copy()
 # env["USER"] = "<user name>" # I needed to add this when testing in colab and kaggle
@@ -136,7 +139,7 @@ env["HYDRA_FULL_ERROR"] = "1"
 subprocess.check_call(["dora", "run", "-d", "solver=musicgen/musicgen_base_32khz_custom.yaml", f"model/lm/model_scale={model}", f"continue_from=//pretrained/facebook/musicgen-{model}", "conditioner=text2music", "dset=audio/custom"], env=env)
 
 print("Fine-tuning done. You can now run")
-print(f"\tdora run -d solver=musicgen/musicgen_base_32khz_custom.yaml model/lm/model_scale={model} continue_from=//pretrained/facebook/musicgen-{model} conditioner=text2music dset=audio/custom")
+print(f"\tdora info solver=musicgen/musicgen_base_32khz_custom.yaml model/lm/model_scale={model} continue_from=//pretrained/facebook/musicgen-{model} conditioner=text2music dset=audio/custom")
 print("to get information about the model (like the signature)")
 
 # NOTE: You can use this command to restart training from a checkpoint:
