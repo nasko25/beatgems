@@ -4,6 +4,14 @@ This project currently uses only the [MusicGen Meta model](https://github.com/fa
 
 This directory contains scripts for fine-tuning the base models using parameters that I've found to work well.
 
+##### Prerequisites
+
+You need to have `build-essential` installed:
+
+```bash
+apt install build-essential
+```
+
 ### Running
 
 1. Install the required submodules
