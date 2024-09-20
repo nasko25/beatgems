@@ -7,6 +7,7 @@ import subprocess
 import sys
 import json
 import os, errno
+import argparse
 
 class DatasetEntry:
     def __init__(self, url, name, artist):
@@ -35,6 +36,19 @@ def generate_json_metadata(dataset_name, file_name, artist):
         file_info = {"key": "", "artist": artist, "sample_rate": song_info["sample_rate"], "file_extension": "mp3", "description": "A cool beat by " + artist, "keywords": "beat, hiphop, hip-hop, hip hop, rap, bass", "duration": song_info["duration"], "bpm": "", "genre": "hip hop", "title": filename, "name": filename[:-4], "instrument": "Mix", "moods": [artist.lower(), "hip hop"]}
         with open(f"./data/{dataset_name}/" + filename[:-4] + ".json", "w") as json_file:
             json_file.write(json.dumps(file_info))
+
+parser = argparse.ArgumentParser(
+    prog='fine_tune',
+    description='audiocraft fine-tuning script',
+    epilog='Fine-tune any pretrained audiocraft model using your custom dataset')
+
+parser.add_argument('-m', '--model', type=int, choices=range(1, 4))
+args = parser.parse_args()
+model = {
+    1: "small",
+    2: "medium",
+    3: "large"
+}[args.model or 1]
 
 # download audio files to be used in the dataset
 data_entries = [
@@ -119,7 +133,11 @@ env = os.environ.copy()
 # env["USER"] = "<user name>" # I needed to add this when testing in colab and kaggle
 env["HYDRA_FULL_ERROR"] = "1"
 # fine tune the model
-subprocess.check_call(["dora", "run", "-d", "solver=musicgen/musicgen_base_32khz_custom.yaml", "model/lm/model_scale=small", "continue_from=//pretrained/facebook/musicgen-small", "conditioner=text2music", "dset=audio/custom"], env=env)
+subprocess.check_call(["dora", "run", "-d", "solver=musicgen/musicgen_base_32khz_custom.yaml", f"model/lm/model_scale={model}", f"continue_from=//pretrained/facebook/musicgen-{model}", "conditioner=text2music", "dset=audio/custom"], env=env)
+
+print("Fine-tuning done. You can now run")
+print(f"\tdora run -d solver=musicgen/musicgen_base_32khz_custom.yaml model/lm/model_scale={model} continue_from=//pretrained/facebook/musicgen-{model} conditioner=text2music dset=audio/custom")
+print("to get information about the model (like the signature)")
 
 # NOTE: You can use this command to restart training from a checkpoint:
 #  USER=root HYDRA_FULL_ERROR=1 dora run -d solver=musicgen/musicgen_base_32khz_custom.yaml model/lm/model_scale=small continue_from=/tmp/audiocraft_root/xps/29c15616/checkpoint.th conditioner=text2music dset=audio/custom
