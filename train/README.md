@@ -30,6 +30,9 @@ python -m pip install -r requirements.txt
 
 ```bash
 python fine_tune.py
+
+# or if you want it to run in the background
+nohup python fine_tune.py > fine_tune.log 2> fine_tune.err < /dev/null &
 ```
 
 5. Export the model by first acquiring the model's configuration signature with:
