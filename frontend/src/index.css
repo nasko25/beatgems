@@ -16,14 +16,12 @@ code {
     monospace;
 }
 
-.outline-btn {
-  border: 2px solid black;
-  background-color: white;
+.outline-btn:not(:hover) {
+  border: 1px solid #e7e7e7;
   color: black;
-  padding: 14px 28px;
-  font-size: 16px;
-  cursor: pointer;
+  background-color: transparent;
+}
 
-  border-color: #e7e7e7;
-  color: black;
+.hover-underline:hover {
+  text-decoration-line: underline !important;
 }
