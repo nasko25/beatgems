@@ -1,6 +1,5 @@
-// import Link from "next/link";
 import { Play, Pause, Music } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 
 import Button from "react-bootstrap/Button";
 
@@ -8,56 +7,17 @@ import { Plans } from "./PlansSection";
 import WaveSurfer from "wavesurfer.js";
 
 import WavesurferPlayer from "@wavesurfer/react";
-// import { Button } from "@/components/ui/button";
-// import {
-//   Card,
-//   CardContent,
-//   CardDescription,
-//   CardFooter,
-//   CardHeader,
-//   CardTitle,
-// } from "@/components/ui/card";
-// import { Slider } from "@/components/ui/slider";
 
 function AudioPlayer({ title, src }: { title: string; src: string }) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
   const [wavesurfer, setWavesurfer] = useState<WaveSurfer | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  useEffect(() => {
-    const audio = new Audio(src);
-    audioRef.current = audio;
-
-    const setAudioData = () => {
-      setDuration(audio.duration);
-    };
-
-    const updateProgress = () => {
-      const calculatedProgress = (audio.currentTime / audio.duration) * 100;
-      setProgress(isNaN(calculatedProgress) ? 0 : calculatedProgress);
-    };
-
-    audio.addEventListener("loadedmetadata", setAudioData);
-    audio.addEventListener("timeupdate", updateProgress);
-    audio.addEventListener("ended", () => setIsPlaying(false));
-
-    return () => {
-      audio.removeEventListener("loadedmetadata", setAudioData);
-      audio.removeEventListener("timeupdate", updateProgress);
-      audio.removeEventListener("ended", () => setIsPlaying(false));
-    };
-  }, [src]);
 
   const togglePlay = () => {
     if (wavesurfer) {
       if (isPlaying) {
         wavesurfer.pause();
-        // audioRef.current.pause();
       } else {
         wavesurfer.play();
-        // audioRef.current.play();
       }
       setIsPlaying(!isPlaying);
     }
@@ -70,12 +30,7 @@ function AudioPlayer({ title, src }: { title: string; src: string }) {
 
   return (
     <div className="flex items-center space-x-4 p-4 rounded-lg">
-      <button
-        // size="icon"
-        // variant="secondary"
-        onClick={togglePlay}
-        aria-label={isPlaying ? "Pause" : "Play"}
-      >
+      <button onClick={togglePlay} aria-label={isPlaying ? "Pause" : "Play"}>
         {isPlaying ? (
           <Pause className="h-4 w-4" />
         ) : (
