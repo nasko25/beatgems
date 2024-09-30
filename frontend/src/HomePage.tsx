@@ -42,7 +42,7 @@ function AudioPlayer({ title, src }: { title: string; src: string }) {
         <WavesurferPlayer
           height={60}
           waveColor="violet"
-          url="/orchestral-hit.mp3"
+          url={src}
           onReady={onReady}
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
@@ -119,7 +119,7 @@ export default function HomePage() {
             <div className="grid gap-6 lg:grid-cols-2">
               <AudioPlayer
                 title="Epic Orchestral Hit"
-                src="/orchestral-hit.mp3"
+                src="https://archive.org/download/rick-astley-never-gonna-give-you-up_202303/Rick-Astley-Never-Gonna-Give-You-Up.mp3"
               />
               <AudioPlayer
                 title="Deep House Bass"

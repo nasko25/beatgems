@@ -2,6 +2,7 @@ import { ChevronRight } from "lucide-react";
 
 import Card from "react-bootstrap/Card";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Button } from "react-bootstrap";
 
 function PlanCard({
   title,
@@ -31,9 +32,12 @@ function PlanCard({
             ))}
           </ul>
         </Card.Text>
-        <button className="w-full bg-[#f8f8f8] rounded-[0.20rem] h-[40px] mt-auto">
+        <Button
+          variant="light"
+          className="w-full bg-[#f8f8f8] rounded-[0.20rem] h-[40px] mt-auto"
+        >
           {cta}
-        </button>
+        </Button>
       </Card.Body>
     </Card>
   );
