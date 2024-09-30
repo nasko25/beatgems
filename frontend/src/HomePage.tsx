@@ -41,7 +41,7 @@ function AudioPlayer({ title, src }: { title: string; src: string }) {
         <h3 className="text-sm font-medium">{title}</h3>
         <WavesurferPlayer
           height={60}
-          waveColor="violet"
+          waveColor="rgba(84, 88, 171, 1)"
           url={src}
           onReady={onReady}
           onPlay={() => setIsPlaying(true)}
