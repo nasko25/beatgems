@@ -9,3 +9,13 @@ Plan is to have 2 main features:
 1. A library of pre-generated AI beats
 2. A way to generate artist type beats using https://www.stableaudio.com/ (according to https://stability.ai/news/stable-audio-2-0 they should release an API at some point)
    It is unfeasible to fine-tune a model for several artist type beats right now, and I doubt the audiocraft models will be good enough
+
+Audio playback with waveforms seems to be a bit more complicated than I had hoped. For now I will just serve static mp3 files through an API using the wavesurfer library.
+
+Otherwise, something like https://github.com/serversideup/amplitudejs could be cool, but still would require UI customizations. I really like the wavesurfer visualization and I'd like to keep using it. After having a working UI and audio files, I can focus on streaming files with wavesurfer: https://github.com/katspaugh/wavesurfer.js/issues/1932#issuecomment-1782804474:
+
+1. Have backend serve right MIME type and supports [time range requests](https://developer.mozilla.org/en-US/docs/Web/Media/Audio_and_video_delivery/buffering_seeking_time_ranges) (should be pretty standard)
+2. Extract peaks and duration and include it in an API endpoint: https://github.com/katspaugh/wavesurfer.js/discussions/3578
+   You can extract the peaks from the audiodata using something like https://github.com/bbc/audiowaveform or ffmepg
+
+Make sure you add authentication to the API endpoints.
