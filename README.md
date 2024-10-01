@@ -16,7 +16,7 @@ Otherwise, something like https://github.com/serversideup/amplitudejs could be c
 
 ### TODO
 
-- [ ] Train model
+- [ ] Fine-tune model
 - [ ] Frontend beat library page
 - [ ] API
       authentication to each endpoint!
