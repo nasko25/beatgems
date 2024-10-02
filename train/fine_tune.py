@@ -96,7 +96,7 @@ datasource:
 """)
 
 subprocess.check_call([sys.executable, "-m", "pip", "install", "torch==2.1.0"])
-subprocess.check_call([sys.executable, "-m", "pip", "install", "setuptools wheel"])
+subprocess.check_call([sys.executable, "-m", "pip", "install", "setuptools==65.0.2", "wheel"])
 subprocess.check_call([sys.executable, "-m", "pip", "install", "-e", "."])
 
 try:
