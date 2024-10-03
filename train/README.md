@@ -81,6 +81,23 @@ In case `python` is liked to `python3.11` or above, you have to use `python3.9`/
 
 Always use a virtual environment, even if it's a rented instance! Because you can always inspect the exact versions of packages used and troubleshoot based on that. I had many issues due to mismatch of package/python versions, and weird globally installed package versions that refused to update.
 
+##### downgrading python to 3.9
+
+1. Install `pyenv`: https://github.com/pyenv/pyenv?tab=readme-ov-file#automatic-installer
+
+```bash
+curl https://pyenv.run | bash
+```
+
+2. Install and set python 3.9.9 environment
+
+```bash
+pyenv install 3.9.20
+pyenv local 3.9.20
+pyenv exec python -m venv ~/Documents/python-envs/beatgems
+source ~/Documents/python-envs/beatgems/bin/activate
+```
+
 #### GPU memory
 
 Fine-tuning the smallest model only worked with two GPUs with 30GB memory in total in kaggle. Anything smaller was not enough memory.
