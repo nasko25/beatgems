@@ -50,12 +50,15 @@ parser = argparse.ArgumentParser(
     epilog='Fine-tune any pretrained audiocraft model using your custom dataset')
 
 parser.add_argument('-m', '--model', type=int, choices=range(1, 4))
+parser.add_argument('--skip-download', action='store_true')
 args = parser.parse_args()
 model = {
     1: "small",
     2: "medium",
     3: "large"
 }[args.model or 1]
+
+skip_download = args["skip-download"]
 
 # download audio files to be used in the dataset
 data_entries = [
@@ -99,37 +102,38 @@ datasource:
 # subprocess.check_call([sys.executable, "-m", "pip", "install", "setuptools", "wheel"])
 subprocess.check_call([sys.executable, "-m", "pip", "install", "-e", "."])
 
-try:
-    os.remove("egs/custom/data.jsonl")
-except OSError as e:
-    if e.errno != errno.ENOENT: # errno.ENOENT = no such file or directory
-        raise
+if not skip_download:
+    try:
+        os.remove("egs/custom/data.jsonl")
+    except OSError as e:
+        if e.errno != errno.ENOENT: # errno.ENOENT = no such file or directory
+            raise
 
-mkdir("egs/custom/")
-for entry in data_entries:
-    dir_name = f"./data/{entry.name}"
-    # skip download and extract if folder exists
-    # if os.path.isdir(f"./data/{entry.name}"):
-    #     continue
+    mkdir("egs/custom/")
+    for entry in data_entries:
+        dir_name = f"./data/{entry.name}"
+        # skip download and extract if folder exists
+        # if os.path.isdir(f"./data/{entry.name}"):
+        #     continue
 
-    gdown.download(entry.url, f"{entry.get_file_name()}.zip")
+        gdown.download(entry.url, f"{entry.get_file_name()}.zip")
 
-    with ZipFile(f"./{entry.get_file_name()}.zip", 'r') as zip_file:
-        zip_file.extractall(dir_name)
-    os.remove(f"./{entry.get_file_name()}.zip")
+        with ZipFile(f"./{entry.get_file_name()}.zip", 'r') as zip_file:
+            zip_file.extractall(dir_name)
+        os.remove(f"./{entry.get_file_name()}.zip")
 
-    # delete all files that are not mp3 audio files
-    for file in os.listdir(dir_name):
-        if not file.endswith(".mp3"):
-            os.remove(os.path.join(dir_name, file))
+        # delete all files that are not mp3 audio files
+        for file in os.listdir(dir_name):
+            if not file.endswith(".mp3"):
+                os.remove(os.path.join(dir_name, file))
 
-    subprocess.check_call([sys.executable, "-m", "audiocraft.data.audio_dataset", f"data/{entry.name}", f"egs/tmp/data_{entry.get_file_name()}.jsonl"])
+        subprocess.check_call([sys.executable, "-m", "audiocraft.data.audio_dataset", f"data/{entry.name}", f"egs/tmp/data_{entry.get_file_name()}.jsonl"])
 
-    generate_json_metadata(entry.name, entry.get_file_name(), entry.artist)
+        generate_json_metadata(entry.name, entry.get_file_name(), entry.artist)
 
-    # concatenate all existing dataset information in a single data.jsonl file that will be used by dora
-    with open("egs/custom/data.jsonl", "a") as data, open(f"egs/tmp/data_{entry.get_file_name()}.jsonl", "r") as ds:
-        data.write(ds.read())
+        # concatenate all existing dataset information in a single data.jsonl file that will be used by dora
+        with open("egs/custom/data.jsonl", "a") as data, open(f"egs/tmp/data_{entry.get_file_name()}.jsonl", "r") as ds:
+            data.write(ds.read())
 
 
 env = os.environ.copy()
