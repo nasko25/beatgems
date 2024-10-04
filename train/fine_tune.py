@@ -58,7 +58,7 @@ model = {
     3: "large"
 }[args.model or 1]
 
-skip_download = args["skip-download"]
+skip_download = args.skip_download
 
 # download audio files to be used in the dataset
 data_entries = [
