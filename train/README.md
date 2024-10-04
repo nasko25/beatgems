@@ -83,13 +83,19 @@ Always use a virtual environment, even if it's a rented instance! Because you ca
 
 ##### downgrading python to 3.9
 
-1. Install `pyenv`: https://github.com/pyenv/pyenv?tab=readme-ov-file#automatic-installer
+1. Install libraries needed by `pyenv`:
+
+```bash
+apt-get install zlib1g-dev libffi-dev libssl-dev libbz2-dev libreadline-dev libsqlite3-dev liblzma-dev libncurses-dev tk-dev
+```
+
+2. Install `pyenv`: https://github.com/pyenv/pyenv?tab=readme-ov-file#automatic-installer
 
 ```bash
 curl https://pyenv.run | bash
 ```
 
-2. Install and set python 3.9.9 environment
+3. Install and set python 3.9.9 environment
 
 ```bash
 pyenv install 3.9.20
