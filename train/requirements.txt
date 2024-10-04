@@ -73,7 +73,7 @@ nvidia-cuda-nvrtc-cu11==11.7.99
 nvidia-cuda-nvrtc-cu12==12.1.105
 nvidia-cuda-runtime-cu11==11.7.99
 nvidia-cuda-runtime-cu12==12.1.105
-nvidia-cudnn-cu11==8.5.0.96
+nvidia-cudnn-cu11==8.9.2.26
 nvidia-cudnn-cu12==8.9.2.26
 nvidia-cufft-cu12==11.0.2.54
 nvidia-curand-cu12==10.3.2.106
@@ -134,7 +134,7 @@ tokenizers==0.13.3
 torch==2.1.0
 torchaudio==2.1.0
 torchdata==0.7.0
-torchmetrics==0.3.2
+torchmetrics==1.4.2
 torchtext==0.16.0
 torchvision==0.16.0
 tqdm==4.66.5
