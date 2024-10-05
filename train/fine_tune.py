@@ -102,20 +102,20 @@ datasource:
 # subprocess.check_call([sys.executable, "-m", "pip", "install", "setuptools", "wheel"])
 subprocess.check_call([sys.executable, "-m", "pip", "install", "-e", "."])
 
-if not skip_download:
-    try:
-        os.remove("egs/custom/data.jsonl")
-    except OSError as e:
-        if e.errno != errno.ENOENT: # errno.ENOENT = no such file or directory
-            raise
+try:
+    os.remove("egs/custom/data.jsonl")
+except OSError as e:
+    if e.errno != errno.ENOENT: # errno.ENOENT = no such file or directory
+        raise
 
-    mkdir("egs/custom/")
-    for entry in data_entries:
-        dir_name = f"./data/{entry.name}"
-        # skip download and extract if folder exists
-        # if os.path.isdir(f"./data/{entry.name}"):
-        #     continue
+mkdir("egs/custom/")
+for entry in data_entries:
+    dir_name = f"./data/{entry.name}"
+    # skip download and extract if folder exists
+    # if os.path.isdir(f"./data/{entry.name}"):
+    #     continue
 
+    if not skip_download:
         gdown.download(entry.url, f"{entry.get_file_name()}.zip")
 
         with ZipFile(f"./{entry.get_file_name()}.zip", 'r') as zip_file:
@@ -127,12 +127,12 @@ if not skip_download:
             if not file.endswith(".mp3"):
                 os.remove(os.path.join(dir_name, file))
 
-        subprocess.check_call([sys.executable, "-m", "audiocraft.data.audio_dataset", f"data/{entry.name}", f"egs/tmp/data_{entry.get_file_name()}.jsonl"])
+    subprocess.check_call([sys.executable, "-m", "audiocraft.data.audio_dataset", f"data/{entry.name}", f"egs/tmp/data_{entry.get_file_name()}.jsonl"])
 
-        generate_json_metadata(entry.name, entry.get_file_name(), entry.artist)
+    generate_json_metadata(entry.name, entry.get_file_name(), entry.artist)
 
-        # concatenate all existing dataset information in a single data.jsonl file that will be used by dora
-        with open("egs/custom/data.jsonl", "a") as data, open(f"egs/tmp/data_{entry.get_file_name()}.jsonl", "r") as ds:
+    # concatenate all existing dataset information in a single data.jsonl file that will be used by dora
+    with open("egs/custom/data.jsonl", "a") as data, open(f"egs/tmp/data_{entry.get_file_name()}.jsonl", "r") as ds:
             data.write(ds.read())
 
 
