@@ -139,6 +139,26 @@ for entry in data_entries:
 env = os.environ.copy()
 # env["USER"] = "<user name>" # I needed to add this when testing in colab and kaggle
 env["HYDRA_FULL_ERROR"] = "1"
+
+# ------------------------------------------------------------------------------------
+# might help with this error:
+"""
+[E ProcessGroupNCCL.cpp:474] [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=2, NumelOut=2, Timeout(ms)=1800000) ran for 1800646 mil
+liseconds before timing out.
+[E ProcessGroupNCCL.cpp:488] Some NCCL operations have failed or timed out. Due to the asynchronous nature of CUDA kernels, subsequent GPU operations might run on corrupted/incomplete
+data.
+[E ProcessGroupNCCL.cpp:494] To avoid data inconsistency, we are taking the entire process down.
+[E ProcessGroupNCCL.cpp:915] [Rank 0] NCCL watchdog thread terminated with exception: [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelI
+n=2, NumelOut=2, Timeout(ms)=1800000) ran for 1800646 milliseconds before timing out.
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  [Rank 0] NCCL watchdog thread terminated with exception: [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=2, NumelOut=2, T
+imeout(ms)=1800000) ran for 1800646 milliseconds before timing out.
+Executor: Worker 0 died, killing all workers
+"""
+# env["NCCL_BLOCKING_WAIT"] = "0"
+# ------------------------------------------------------------------------------------
+
+
 # fine tune the model
 subprocess.check_call(["dora", "run", "-d", "solver=musicgen/musicgen_base_32khz_custom.yaml", f"model/lm/model_scale={model}", f"continue_from=//pretrained/facebook/musicgen-{model}", "conditioner=text2music", "dset=audio/custom"], env=env)
 
