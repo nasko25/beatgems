@@ -150,3 +150,25 @@ sudo apt-get upgrade
 ```
 
 After that I got some fortran build error. Turns out it was likely due to the [python version](#python-version).
+
+#### Training data initialization timeout
+
+I got this error when initializing the training data took >30min to complete:
+
+```
+[flashy.solver][INFO] - Ignoring keys when loading best []
+[E ProcessGroupNCCL.cpp:474] [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=2, NumelOut=2, Timeout(ms)=1800000) ran for 1800646 mil
+liseconds before timing out.
+[E ProcessGroupNCCL.cpp:488] Some NCCL operations have failed or timed out. Due to the asynchronous nature of CUDA kernels, subsequent GPU operations might run on corrupted/incomplete
+data.
+[E ProcessGroupNCCL.cpp:494] To avoid data inconsistency, we are taking the entire process down.
+[E ProcessGroupNCCL.cpp:915] [Rank 0] NCCL watchdog thread terminated with exception: [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelI
+n=2, NumelOut=2, Timeout(ms)=1800000) ran for 1800646 milliseconds before timing out.
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  [Rank 0] NCCL watchdog thread terminated with exception: [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=2, NumelOut=2, T
+imeout(ms)=1800000) ran for 1800646 milliseconds before timing out.
+Executor: Worker 0 died, killing all workers
+```
+
+I was not able to fix it, perhaps it just needs more time, but it is getting too expensive for me to wait for it for too long given all uncertainties.
+[This issue](https://github.com/ultralytics/ultralytics/issues/1439) lead me to believe that the dataset is just too large, so I removed the last dataset from `fine_tune.py` and it proceeded without throwing this error.
