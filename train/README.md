@@ -172,3 +172,11 @@ Executor: Worker 0 died, killing all workers
 
 I was not able to fix it, perhaps it just needs more time, but it is getting too expensive for me to wait for it for too long given all uncertainties.
 [This issue](https://github.com/ultralytics/ultralytics/issues/1439) lead me to believe that the dataset is just too large, so I removed the last dataset from `fine_tune.py` and it proceeded without throwing this error.
+
+I am testing it locally and it took 27 minutes after the `[audiocraft.modules.codebooks_patterns][INFO] - New pattern, time steps: 1500, sequence steps: 1504` log for the first Training log to appear. But the good news is that `small` model fine-tuning works on a 3070 with 8GB of memory for now.
+
+#### Memory filled
+
+My fine-tuning script crashed once because the RAM and swap partition got filled up. I have not 100% confirmed this was the issue, but swap was 100% full and every time I tried to rerun it, the kernel kept killing the fine-tuning process.
+
+I fixed it by adding a little bit more RAM (by increasing my VM allocation) and clearing everything stored on the swap partition (basically by restarting my local instance).
