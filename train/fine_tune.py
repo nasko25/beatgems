@@ -14,7 +14,7 @@ class DatasetEntry:
         self.url = url
         self.name = name
         self.artist = artist
-    
+
     def get_file_name(self):
         return "_".join(self.name.split(" ")).lower()
 
@@ -96,6 +96,21 @@ datasource:
   valid: egs/custom
   evaluate: egs/custom
   generate: egs/custom
+""")
+
+with open("config/teams/default.yaml", "w") as f:
+    f.write("""default:
+  dora_dir: tmp/audiocraft_${oc.env:USER}
+  partitions:
+    global: debug
+    team: debug
+  reference_dir: tmp # TODO: or /tmp ??
+darwin:  # if we detect we are on a Mac, then most likely we are doing unit testing etc.
+  dora_dir: /tmp/audiocraft_${oc.env:USER}
+  partitions:
+    global: debug
+    team: debug
+  reference_dir: /tmp # TODO: or tmp ??
 """)
 
 # subprocess.check_call([sys.executable, "-m", "pip", "install", "torch==2.1.0"])
