@@ -29,8 +29,8 @@ if SIG is None:
 
 print(f"\nUsing model signature {SIG}")
 xp = train.main.get_xp_from_sig(SIG)
-export.export_lm(xp.folder / 'checkpoint.th', '/checkpoints/my_audio_lm/state_dict.bin')
+export.export_lm(xp.folder / 'checkpoint.th', 'checkpoints/my_audio_lm/state_dict.bin')
 
-export.export_pretrained_compression_model('facebook/encodec_32khz', '/checkpoints/my_audio_lm/compression_state_dict.bin')
+export.export_pretrained_compression_model('facebook/encodec_32khz', 'checkpoints/my_audio_lm/compression_state_dict.bin')
 
-print("Export succeeded. You can now use /checkpoints/my_audio_lm as a model for audio generation.")
+print("Export succeeded. You can now use checkpoints/my_audio_lm as a model for audio generation.")
