@@ -60,6 +60,10 @@ This command should be basically the same as the `dora run` command used in `fin
 After running the command run:
 
 ```bash
+# these are important because the audiocraft dependency in this script expects to find the audiocraft/tmp/... directory
+cp export_model.py audiocraft/
+cd audiocraft/
+
 python export_model.py
 ```
 
