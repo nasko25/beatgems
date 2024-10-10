@@ -26,7 +26,7 @@ dora_search==0.1.12
 einops==0.8.0
 encodec==0.1.1
 exceptiongroup==1.2.2
-fastapi==0.115.0
+fastapi==0.112.4
 ffmpy==0.4.0
 filelock==3.16.1
 flashy==0.0.2
