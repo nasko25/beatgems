@@ -28,6 +28,11 @@ After having a working UI and audio files:
 And only after that focus on:
 
 - [ ] ? Streaming files with wavesurfer: https://github.com/katspaugh/wavesurfer.js/issues/1932#issuecomment-1782804474:
+
   1. Have backend serve right MIME type and supports [time range requests](https://developer.mozilla.org/en-US/docs/Web/Media/Audio_and_video_delivery/buffering_seeking_time_ranges) (should be pretty standard)
   2. Extract peaks and duration and include it in an API endpoint: https://github.com/katspaugh/wavesurfer.js/discussions/3578
      You can extract the peaks from the audiodata using something like https://github.com/bbc/audiowaveform or ffmepg
+
+- [ ] Generate some parts of a song separately (for example a "clean beat with no other instruments" and a "hip hop bass line") and combine them into one song
+      Specifying a BPM during the generation should fix the recordings being out of sync
+      Hopefully this would also fix the "phantom bass" sounds (where the bass line sounds as if it's merged with the beat entirely) in many of the generated beats.
