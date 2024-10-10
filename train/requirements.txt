@@ -33,8 +33,8 @@ flashy==0.0.2
 fonttools==4.54.1
 fsspec==2024.9.0
 gdown
-gradio==4.37.2
-gradio_client==1.0.2
+gradio==4.43.0
+gradio_client==1.3.0
 h11==0.14.0
 httpcore==1.0.6
 httpx==0.27.2
