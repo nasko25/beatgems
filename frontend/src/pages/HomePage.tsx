@@ -3,10 +3,11 @@ import { useState } from "react";
 
 import Button from "react-bootstrap/Button";
 
-import { Plans } from "./PlansSection";
+import { Plans } from "../PlansSection";
 import WaveSurfer from "wavesurfer.js";
 
 import WavesurferPlayer from "@wavesurfer/react";
+import ContactForm from "../components/ContactForm";
 
 function AudioPlayer({ title, src }: { title: string; src: string }) {
   const [isPlaying, setIsPlaying] = useState(false);
