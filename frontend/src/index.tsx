@@ -13,6 +13,11 @@ const router = createBrowserRouter([
     element: <HomePage />,
     errorElement: <ErrorPage />,
   },
+
+  {
+    path: "/contact",
+    element: <ContactPage />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(

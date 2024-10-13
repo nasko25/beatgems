@@ -30,6 +30,12 @@ code {
   color: #818181;
 }
 
+#contact-subtitle {
+  color: #797982;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 #error-message {
   height: 100vh;
   display: flex;
@@ -38,4 +44,17 @@ code {
   justify-content: center;
   width: 100%;
 }
+
+::placeholder {
+  color: #71717a !important;
+  opacity: 1 !important; /* Firefox */
+  font-weight: 500;
+}
+
+::-ms-input-placeholder { /* Edge 12 -18 */
+  color: #71717a !important;
+}
+
+input:focus, textarea:focus {
+  outline-color: #a1a1a1 !important;
 }
