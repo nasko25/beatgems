@@ -25,3 +25,17 @@ code {
 .hover-underline:hover {
   text-decoration-line: underline !important;
 }
+
+#error-message i {
+  color: #818181;
+}
+
+#error-message {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+}
