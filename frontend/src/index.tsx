@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage";
 import ContactPage from "./pages/ContactPage";
+import ComingSoonMessage from "./components/ComingSoonMessage";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,7 @@ const router = createBrowserRouter([
       });
     },
   },
+  { path: "/soon", element: <ComingSoonMessage /> },
 ]);
 
 const root = ReactDOM.createRoot(
