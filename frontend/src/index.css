@@ -58,3 +58,7 @@ code {
 input:focus, textarea:focus {
   outline-color: #a1a1a1 !important;
 }
+
+#coming-soon-msg {
+  height: calc(100vh - 3.5rem)
+}
