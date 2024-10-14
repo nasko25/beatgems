@@ -94,10 +94,7 @@ export default function HomePage() {
                 title="Epic Orchestral Hit"
                 src="https://archive.org/download/rick-astley-never-gonna-give-you-up_202303/Rick-Astley-Never-Gonna-Give-You-Up.mp3"
               />
-              <AudioPlayer
-                title="Deep House Bass"
-                src="/samples/house-bass.mp3"
-              />
+              <AudioPlayer title="Deep House Bass" src="/tmpf1u8uoge.wav" />
               <AudioPlayer
                 title="Trap Snare Roll"
                 src="/samples/snare-roll.mp3"
