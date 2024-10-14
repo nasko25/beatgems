@@ -48,69 +48,66 @@ function InputField(props: {
 }
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [stateMessage, setStateMessage] = useState<string | null>(null);
+  const initialCountdownValue = 5;
+  const [countdown, setCountdown] = useState(initialCountdownValue);
   const [contactInfo, setContactInfo] = useState({
     name: "",
     email_address: "",
     message: "",
   });
-  const handleSubmit = (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
+  const stateMessage =
+    "Something went wrong, please try again later in " + countdown + "...";
+  const [stateMessageShowing, setStateMessageShowing] = useState(false);
+
+  const handleSubmit = (
+    e: SyntheticEvent<HTMLFormElement, SubmitEvent>,
+    countdown: number
+  ) => {
     e.persist();
     e.preventDefault();
     setIsSubmitting(true);
-    console.log(e.target);
-    // emailjs
-    //   .send(
-    //     process.env.REACT_APP_SERVICE_ID,
-    //     process.env.REACT_APP_TEMPLATE_ID,
-    //     e.target,
-    //     { publicKey: process.env.REACT_APP_PUBLIC_KEY }
-    //   )
-    //   .then(
-    //     (result) => {
-    //       setStateMessage("Message sent!");
-    //       setIsSubmitting(false);
-    //       setTimeout(() => {
-    //         setStateMessage(null);
-    //       }, 5000); // hide message after 5 seconds
-    //     },
-    //     (error) => {
-    //       setStateMessage("Something went wrong, please try again later");
-    //       setIsSubmitting(false);
-    //       setTimeout(() => {
-    //         setStateMessage(null);
-    //       }, 5000); // hide message after 5 seconds
-    //     }
-    //   );
+    emailjs
+      .send(
+        process.env.REACT_APP_SERVICE_ID!,
+        process.env.REACT_APP_TEMPLATE_ID!,
+        contactInfo,
+        { publicKey: process.env.REACT_APP_PUBLIC_KEY }
+      )
+      .then(
+        (_) => {
+          setStateMessageShowing(false);
+          setIsSubmitting(false);
+          window.location.href = "/";
+        },
+        (error) => {
+          // TODO: logging
+          setStateMessageShowing(true);
+          const countdownInterval = setInterval(() => {
+            setCountdown((prevCount) => {
+              if (prevCount <= 0) {
+                clearInterval(countdownInterval);
+                setIsSubmitting(false);
+                setStateMessageShowing(false);
+                return initialCountdownValue;
+              } else {
+                return --prevCount;
+              }
+            });
+          }, 1000);
+        }
+      );
 
     // Clears the form after sending the email
     // e.target.reset();
     e.currentTarget.reset();
   };
   return (
-    // <form onSubmit={handleSubmit} className="space-y-4">
-    //   <div className="space-y-2">
-    //     <Label htmlFor="name">Name</Label>
-    //     <Input id="name" placeholder="Your name" required />
-    //   </div>
-    //   <div className="space-y-2">
-    //     <Label htmlFor="email">Email</Label>
-    //     <Input
-    //       id="email"
-    //       type="email"
-    //       placeholder="Your email"
-    //       required
-    //     />
-    //   </div>
-    //   <div className="space-y-2">
-    //     <Label htmlFor="message">Message</Label>
-    //     <Textarea id="message" placeholder="Your message" required />
-    //   </div>
-    //   <Button type="submit" className="w-full">
-    //     Send Message
-    //   </Button>
-    // </form>
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form
+      onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) =>
+        handleSubmit(e, countdown)
+      }
+      className="space-y-4"
+    >
       {/* TODO: should be required */}
       <InputField
         value={contactInfo.name}
@@ -140,7 +137,7 @@ const ContactForm = () => {
           setContactInfo({ ...contactInfo, message: event.target.value })
         }
       />
-      {stateMessage && <p>{stateMessage}</p>}
+      {stateMessageShowing && <p>{stateMessage}</p>}
       <button
         className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full bg-black text-white"
         type="submit"

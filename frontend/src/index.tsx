@@ -17,6 +17,29 @@ const router = createBrowserRouter([
   {
     path: "/contact",
     element: <ContactPage />,
+    errorElement: <ErrorPage />,
+    // ensure environment variables are set
+    loader: function () {
+      console.log(process.env);
+      if (
+        !process.env.REACT_APP_SERVICE_ID ||
+        !process.env.REACT_APP_TEMPLATE_ID ||
+        !process.env.REACT_APP_PUBLIC_KEY
+      ) {
+        throw new Response("Internal Server Error", {
+          status: 500,
+          statusText: "Incorrect server configuration",
+        });
+      }
+
+      return new Response("OK", {
+        status: 200,
+        // can also add custom headers
+        // headers: {
+        //   "Content-Type": "application/json; utf-8",
+        // },
+      });
+    },
   },
 ]);
 
