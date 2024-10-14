@@ -1,10 +1,15 @@
 import Card from "react-bootstrap/Card";
 import ContactForm from "../components/ContactForm";
 
-export default function HomePage() {
+export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4 flex-col">
+      <h2> Thanks for the interest!</h2>
+      <p>
+        We are still in closed beta. Please consider sending us a message if you
+        want to be a part of it!
+      </p>
+      <Card className="w-full max-w-md mt-5">
         <Card.Body className="p-0">
           <div className="p-6">
             <Card.Title>
