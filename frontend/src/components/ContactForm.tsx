@@ -1,5 +1,6 @@
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import emailjs from "@emailjs/browser";
+import { useSearchParams } from "react-router-dom";
 
 function InputField(props: {
   value: string;
@@ -50,11 +51,22 @@ const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const initialCountdownValue = 5;
   const [countdown, setCountdown] = useState(initialCountdownValue);
-  const [contactInfo, setContactInfo] = useState({
+  const [searchParams, setSearchParams] = useSearchParams();
+  const p = searchParams.get("p");
+  const defaultContact: {
+    name: string;
+    email_address: string;
+    message: string;
+    plan?: string;
+  } = {
     name: "",
     email_address: "",
     message: "",
-  });
+  };
+  if (p) defaultContact.plan = p;
+  const [contactInfo, setContactInfo] = useState(defaultContact);
+  console.log(contactInfo);
+  useEffect(() => setSearchParams({}), [setSearchParams]);
   const stateMessage =
     "Something went wrong, please try again later in " + countdown + "...";
   const [stateMessageShowing, setStateMessageShowing] = useState(false);

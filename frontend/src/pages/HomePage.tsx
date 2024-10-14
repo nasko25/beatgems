@@ -1,4 +1,4 @@
-import { Play, Pause, Music } from "lucide-react";
+import { Play, Pause } from "lucide-react";
 import { useState } from "react";
 
 import Button from "react-bootstrap/Button";
@@ -71,7 +71,11 @@ export default function HomePage() {
                 </p>
               </div>
               <div className="space-x-4">
-                <Button variant="dark" size="lg">
+                <Button
+                  variant="dark"
+                  size="lg"
+                  onClick={() => (window.location.href = "/contact")}
+                >
                   Get Started
                 </Button>
                 <Button

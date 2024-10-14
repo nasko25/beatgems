@@ -35,6 +35,9 @@ function PlanCard({
         <Button
           variant="light"
           className="w-full bg-[#f8f8f8] rounded-[0.20rem] h-[40px] mt-auto"
+          onClick={() => {
+            window.location.href = "/contact?p=" + title;
+          }}
         >
           {cta}
         </Button>
