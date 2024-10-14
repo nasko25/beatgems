@@ -74,7 +74,12 @@ export default function HomePage() {
                 <Button variant="dark" size="lg">
                   Get Started
                 </Button>
-                <Button variant="light" size="lg" className="outline-btn">
+                <Button
+                  variant="light"
+                  size="lg"
+                  className="outline-btn"
+                  onClick={() => (window.location.href = "/soon")}
+                >
                   Learn More
                 </Button>
               </div>
@@ -114,13 +119,13 @@ export default function HomePage() {
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
           <a
             className="text-reset text-decoration-none text-xs hover-underline underline-offset-4"
-            href="#"
+            href="/soon"
           >
             Terms of Service
           </a>
           <a
             className="text-reset text-decoration-none text-xs hover-underline underline-offset-4"
-            href="#"
+            href="/soon"
           >
             Privacy
           </a>
