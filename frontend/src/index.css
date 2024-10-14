@@ -30,12 +30,6 @@ code {
   color: #818181;
 }
 
-#contact-subtitle {
-  color: #797982;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
 #error-message {
   height: 100vh;
   display: flex;
@@ -43,6 +37,12 @@ code {
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+
+#contact-subtitle {
+  color: #797982;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 ::placeholder {
