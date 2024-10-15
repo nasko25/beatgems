@@ -33,6 +33,8 @@ And only after that focus on:
   2. Extract peaks and duration and include it in an API endpoint: https://github.com/katspaugh/wavesurfer.js/discussions/3578
      You can extract the peaks from the audiodata using something like https://github.com/bbc/audiowaveform or ffmepg
 
+- [ ] Add a plays/downloads counter and likes/dislikes
+
 - [ ] Generate some parts of a song separately (for example a "clean beat with no other instruments" and a "hip hop bass line") and combine them into one song
       Specifying a BPM during the generation should fix the recordings being out of sync
       Hopefully this would also fix the "phantom bass" sounds (where the bass line sounds as if it's merged with the beat entirely) in many of the generated beats.
