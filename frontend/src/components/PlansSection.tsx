@@ -54,25 +54,29 @@ export function Plans() {
       </h2>
       <div className="grid gap-6 lg:grid-cols-2">
         <PlanCard
-          title="Basic"
+          title="Hobbyist"
           subtitle="For hobbyists and beginners"
-          price="$9.99/mo"
+          price="$1/mo"
           text={[
-            "Access to 1000+ samples",
-            "Basic mixing tools",
-            "Community forum access",
+            "Non-commercial use for every song/beat in the library for as long as the trial is active",
+            "Access to all 1000+ AI generated beats and a limited selection of 100 user-generated beats",
+            "100 uploads/month",
+            "$2 single time fee to license a particular beat forever",
+            // "Community forum access",
           ]}
-          cta="Choose Basic"
+          cta="Choose Hobbyist"
         ></PlanCard>
         <PlanCard
           title="Pro"
           subtitle="For serious producers and professionals"
-          price="$24.99/mo"
+          price="$10/mo"
           text={[
-            "Access to 10,000+ samples",
-            "Advanced mixing and effects",
-            "Exclusive pro community",
-            "Early access to new samples",
+            "Commercial use for every song/beat in the library for as long as the trial is active",
+            "Access to our full library of 10,000+ AI and user-generated samples", // or "Access to a rich library of..."?
+            "Unlimited uploads",
+            "Only $1 single time fee to license a particular beat forever",
+            // "Exclusive pro community",
+            // "Early access to new samples every Friday", // available to all other paying customers in 1 week?
           ]}
           cta="Choose Pro"
         ></PlanCard>
