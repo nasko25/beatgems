@@ -52,7 +52,7 @@ nohup python fine_tune.py -m 3 > fine_tune.log 2> fine_tune.err < /dev/null &
 5. Export the model by first acquiring the model's configuration signature with from the `audiocraft/` directory:
 
 ```bash
-dora info solver=musicgen/musicgen_base_32khz_custom.yaml model/lm/model_scale=small continue_from=//pretrained/facebook/musicgen-small conditioner=text2music dset=audio/custom
+dora info solver=musicgen/musicgen_base_32khz_custom.yaml model/lm/model_scale=large continue_from=//pretrained/facebook/musicgen-large conditioner=text2music dset=audio/custom
 ```
 
 This command should be basically the same as the `dora run` command used in `fine_tune.py`. If you change it for any reason, or change the yaml config, you need to alter this info command as well.
