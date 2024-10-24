@@ -5,14 +5,25 @@ import os.path
 from audiocraft.data.audio import audio_write
 from tempfile import NamedTemporaryFile
 from concurrent.futures import ProcessPoolExecutor
-from random import randrange
+from random import randrange, choice
 import typing as tp
 from pathlib import Path
 
+# prompt:probability
+# NOTE: only positive probabilities allowed
+prompts = {"hip-hop beat": 1}
+
+# how many beats to generate
+GENERATE_BEATS = 2
 
 pool = ProcessPoolExecutor(4)
 pool.__enter__()
 
+sum_probs = sum(prompts[prompt] for prompt in prompts)
+
+# normalize probabilities
+for prompt in prompts:
+    prompts[prompt] = float(prompts[prompt]) / sum_probs
 
 class FileCleaner:
     def __init__(self, file_lifetime: float = 3600):
@@ -60,7 +71,16 @@ def _do_predictions(texts, duration, **gen_kwargs):
     print("Tempfiles currently stored: ", len(file_cleaner.files))
     return out_wavs
 
-duration = randrange(160, 300)
-wavs = _do_predictions(
-        ["hip-hop beat"], duration, top_k=topk, top_p=topp,
+for beat_count in GENERATE_BEATS:
+    file_name = "beat" + beat_count + ".wav"
+    if os.path.isfile(file_name):
+        print("\033[91mFile " + file_name + " already exists!\033[0m")
+        continue
+    duration = 10 #randrange(160, 300)
+    prompt = choice(population=prompts.keys(), weights=prompts.values())
+    wavs = _do_predictions(
+        [prompt], duration, top_k=topk, top_p=topp,
         temperature=1, cfg_coef=3)
+    
+    with open(file_name, "w") as f:
+        f.write(wavs[0])
