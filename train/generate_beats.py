@@ -5,7 +5,7 @@ import os.path
 from audiocraft.data.audio import audio_write
 from tempfile import NamedTemporaryFile
 from concurrent.futures import ProcessPoolExecutor
-from random import randrange, choice
+from random import randrange, choices
 import typing as tp
 from pathlib import Path
 
@@ -61,21 +61,21 @@ MODEL = MusicGen.get_pretrained(model_path)
 
 def _do_predictions(texts, duration, **gen_kwargs):
     MODEL.set_generation_params(duration=duration, **gen_kwargs)
-    print("new batch", len(texts), texts, [None if m is None else (m[0], m[1].shape) for m in melodies])
+    print("new batch", len(texts), texts)
     be = time.time()
 
+    try:
+        outputs = MODEL.generate(texts, return_tokens=False)
+    except RuntimeError as e:
+        raise Exception("Error while generating " + e.args[0])
+
     outputs = outputs.detach().cpu().float()
-    out_wavs = []
-    for output in outputs:
-        with NamedTemporaryFile("wb", suffix=".wav", delete=False) as file:
-            audio_write(
-                file.name, output, MODEL.sample_rate, strategy="loudness",
-                loudness_headroom_db=16, loudness_compressor=True, add_suffix=False)
-            out_wavs.append(file.name)
-            file_cleaner.add(file.name)
+    if len(outputs) != 1:
+        raise Exception("unexpected length for outputs: {}".format(len(outputs)))
+
     print("batch finished", len(texts), time.time() - be)
     print("Tempfiles currently stored: ", len(file_cleaner.files))
-    return out_wavs
+    return outputs[0]
 
 for beat_count in range(GENERATE_BEATS):
     file_name = "beat{}.wav".format(beat_count)
@@ -84,13 +84,15 @@ for beat_count in range(GENERATE_BEATS):
         continue
     print("Generating beat {}/{}".format(beat_count, GENERATE_BEATS))
     duration = 10 #randrange(160, 300)
-    prompt = choice(population=prompts.keys(), weights=prompts.values())
-    wavs = _do_predictions(
+    prompt = choices(population=list(prompts.keys()), weights=list(prompts.values()), k=1)[0]
+    output = _do_predictions(
         [prompt], duration, top_k=topk, top_p=topp,
         temperature=1, cfg_coef=3)
     
     print("Beat {} done".format(beat_count))
     print("Saving to file {}...".format(file_name))
-    with open(file_name, "w") as f:
-        f.write(wavs[0])
+    with open(file_name, "wb") as f:
+        audio_write(
+                file_name, output, MODEL.sample_rate, strategy="loudness",
+                loudness_headroom_db=16, loudness_compressor=True, add_suffix=False)
         print("{} saved".format(file_name))
