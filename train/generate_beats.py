@@ -87,7 +87,7 @@ for beat_count in range(GENERATE_BEATS):
         print("\033[91mFile " + file_name + " already exists!\033[0m")
         continue
     print("Generating beat {}/{}".format(beat_count, GENERATE_BEATS))
-    duration = 10 #randrange(160, 300)
+    duration = randrange(160, 300)
     output = _do_predictions(
         [prompt], duration, top_k=topk, top_p=topp,
         temperature=1, cfg_coef=3)
