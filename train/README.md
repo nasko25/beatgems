@@ -85,6 +85,8 @@ In case `python` is liked to `python3.11` or above, you have to use `python3.9`/
 
 Always use a virtual environment, even if it's a rented instance! Because you can always inspect the exact versions of packages used and troubleshoot based on that. I had many issues due to mismatch of package/python versions, and weird globally installed package versions that refused to update.
 
+Unless specified otherwise (at the beginning of a script), any python script in this directory uses the same virtual environment with the packages and versions in `requirements.txt` and `python3.9.20`.
+
 ##### downgrading python to 3.9
 
 1. Install libraries needed by `pyenv`:
@@ -99,7 +101,7 @@ apt-get install zlib1g-dev libffi-dev libssl-dev libbz2-dev libreadline-dev libs
 curl https://pyenv.run | bash
 ```
 
-3. Install and set python 3.9.9 environment
+3. Install and set python 3.9.20 environment
 
 ```bash
 pyenv install 3.9.20
