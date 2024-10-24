@@ -108,7 +108,7 @@ export default function HomePage() {
                 title="Trap Snare Roll"
                 src="/samples/snare-roll.mp3"
               />
-              <AudioPlayer title="Ambient Pad" src="/samples/ambient-pad.mp3" />
+              <AudioPlayer title="Ambient Pad" src="/temp2.wav" />
             </div>
           </div>
         </section>
