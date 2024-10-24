@@ -77,14 +77,17 @@ def _do_predictions(texts, duration, **gen_kwargs):
     print("Tempfiles currently stored: ", len(file_cleaner.files))
     return outputs[0]
 
+all_prompts = list(prompts.keys())
+prompt_weights = list(prompts.values())
 for beat_count in range(GENERATE_BEATS):
-    file_name = "beat{}.wav".format(beat_count)
+    prompt = choices(population=all_prompts, weights=prompt_weights, k=1)[0]
+    prompt_idx = all_prompts.index(prompt)
+    file_name = "beat{}_{}.wav".format(beat_count, prompt_idx)
     if os.path.isfile(file_name):
         print("\033[91mFile " + file_name + " already exists!\033[0m")
         continue
     print("Generating beat {}/{}".format(beat_count, GENERATE_BEATS))
     duration = 10 #randrange(160, 300)
-    prompt = choices(population=list(prompts.keys()), weights=list(prompts.values()), k=1)[0]
     output = _do_predictions(
         [prompt], duration, top_k=topk, top_p=topp,
         temperature=1, cfg_coef=3)
