@@ -77,7 +77,7 @@ def _do_predictions(texts, duration, **gen_kwargs):
     print("Tempfiles currently stored: ", len(file_cleaner.files))
     return out_wavs
 
-for beat_count in GENERATE_BEATS:
+for beat_count in range(GENERATE_BEATS):
     file_name = "beat" + beat_count + ".wav"
     if os.path.isfile(file_name):
         print("\033[91mFile " + file_name + " already exists!\033[0m")
