@@ -78,19 +78,19 @@ def _do_predictions(texts, duration, **gen_kwargs):
     return out_wavs
 
 for beat_count in range(GENERATE_BEATS):
-    file_name = "beat" + beat_count + ".wav"
+    file_name = "beat{}.wav".format(beat_count)
     if os.path.isfile(file_name):
         print("\033[91mFile " + file_name + " already exists!\033[0m")
         continue
-    print("Generating beat " + beat_count + "/" + GENERATE_BEATS)
+    print("Generating beat {}/{}".format(beat_count, GENERATE_BEATS))
     duration = 10 #randrange(160, 300)
     prompt = choice(population=prompts.keys(), weights=prompts.values())
     wavs = _do_predictions(
         [prompt], duration, top_k=topk, top_p=topp,
         temperature=1, cfg_coef=3)
     
-    print("Beat " + beat_count + "done")
-    print("Saving to file " + file_name + "...")
+    print("Beat {} done".format(beat_count))
+    print("Saving to file {}...".format(file_name))
     with open(file_name, "w") as f:
         f.write(wavs[0])
-        print(file_name + " saved")
+        print("{} saved".format(file_name))
