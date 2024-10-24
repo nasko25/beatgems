@@ -46,7 +46,13 @@ class FileCleaner:
 
 file_cleaner = FileCleaner()
 
-model_path = "TODO"
+model_path = "./checkpoints/my_audio_lm/"
+
+if not os.path.isdir(model_path) \
+        or not os.path.isfile(model_path + "state_dict.bin") \
+        or not os.path.isfile(model_path + "compression_state_dict.bin"):
+    raise Exception("Model " + model_path + " is missing. Make sure you have the latest fine-tuned model available.")
+
 topk = 400
 topp = 0.9
 torch.cuda.empty_cache()
