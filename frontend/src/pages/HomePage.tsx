@@ -63,7 +63,7 @@ export default function HomePage() {
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Discover Your Perfect Sound
+                  Discover Your Perfect Sound!
                 </h1>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
                   Access thousands of high-quality music samples. Create, mix,
@@ -82,7 +82,7 @@ export default function HomePage() {
                   variant="light"
                   size="lg"
                   className="outline-btn"
-                  onClick={() => (window.location.href = "/soon")}
+                  onClick={() => (window.location.href = "/contact")}
                 >
                   Learn More
                 </Button>
