@@ -44,6 +44,8 @@ const router = createBrowserRouter([
     },
   },
   { path: "/soon", element: <ComingSoonMessage /> },
+
+  // TODO: should be protected by authentication and a paywall!
   { path: "/home", element: <LibraryPage /> },
 ]);
 
