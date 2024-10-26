@@ -17,6 +17,7 @@ Otherwise, something like https://github.com/serversideup/amplitudejs could be c
 ### TODO
 
 - [x] Fine-tune model
+- [ ] [Migrate to vite](https://coreui.io/blog/how-to-migrate-create-react-app-to-vite/)...
 - [ ] Frontend beat library page
 - [ ] API
       authentication to each endpoint!
