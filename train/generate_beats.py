@@ -8,6 +8,7 @@ from concurrent.futures import ProcessPoolExecutor
 from random import randrange, choices
 import typing as tp
 from pathlib import Path
+from datetime import datetime
 
 # prompt:probability
 # NOTE: only positive probabilities allowed
@@ -98,4 +99,4 @@ for beat_count in range(GENERATE_BEATS):
         audio_write(
                 file_name, output, MODEL.sample_rate, strategy="loudness",
                 loudness_headroom_db=16, loudness_compressor=True, add_suffix=False)
-        print("{} saved".format(file_name))
+        print("{} saved at {}".format(file_name, datetime.now()))
