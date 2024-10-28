@@ -21,11 +21,11 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     // ensure environment variables are set
     loader: function () {
-      console.log(process.env);
+      console.log(import.meta.env);
       if (
-        !process.env.REACT_APP_SERVICE_ID ||
-        !process.env.REACT_APP_TEMPLATE_ID ||
-        !process.env.REACT_APP_PUBLIC_KEY
+        !import.meta.env.VITE_SERVICE_ID ||
+        !import.meta.env.VITE_TEMPLATE_ID ||
+        !import.meta.env.VITE_PUBLIC_KEY
       ) {
         throw new Response("Internal Server Error", {
           status: 500,
