@@ -1,20 +1,30 @@
-import { SimpleTreeView } from "@mui/x-tree-view";
+import { SimpleTreeView, useTreeViewApiRef } from "@mui/x-tree-view";
 import { BeatsListItem } from "./BeatsListItem";
 import Box from "@mui/material/Box";
+import Song from "./Song";
 
-export default function BeatsList() {
+// recursively expand nested songs
+function expandNestedSongs(song: Song): JSX.Element {
+  var nestedSong: JSX.Element[] = [];
+  for (const nested of song.similarSongs) {
+    nestedSong.push(expandNestedSongs(nested));
+  }
+  return nestedSong.length > 0 ? (
+    <BeatsListItem song={song}> {nestedSong}</BeatsListItem>
+  ) : (
+    // NOTE: makes the jsx element's children undefined so that there will be no dropdown displayed
+    <BeatsListItem song={song} />
+  );
+}
+
+export default function BeatsList(props: { visibleSongs: Song[] }) {
   return (
     <Box sx={{ minHeight: 200, minWidth: 250 }}>
-      <SimpleTreeView defaultExpandedItems={["3"]}>
-        <BeatsListItem itemId="1" label="Amelia Hart">
-          <BeatsListItem itemId="2" label="Jane Fisher" />
-        </BeatsListItem>
-        <BeatsListItem itemId="3" label="Bailey Monroe">
-          <BeatsListItem itemId="4" label="Freddie Reed" />
-          <BeatsListItem itemId="5" label="Georgia Johnson">
-            <BeatsListItem itemId="6" label="Samantha Malone" />
-          </BeatsListItem>
-        </BeatsListItem>
+      <SimpleTreeView
+        defaultExpandedItems={["3"]}
+        expansionTrigger="iconContainer"
+      >
+        {props.visibleSongs.map((song) => expandNestedSongs(song))}
       </SimpleTreeView>
     </Box>
   );
