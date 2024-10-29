@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import Button from "react-bootstrap/Button";
 import NavBar from "../components/Navbar";
-import BeatsListItem from "../components/BeatsListItem";
+import BeatsList from "../components/BeatsList";
 // import { Button } from "@/components/ui/button";
 // import {
 //   Collapsible,
@@ -62,7 +62,7 @@ export default function LibraryPage({
     <div className="min-h-screen flex flex-col bg-background">
       <NavBar />
       <main className="flex-grow overflow-auto">
-        {/* <BeatsListItem /> */}
+        <BeatsList />
         {visibleSongs.map((song) => (
           <div
             key={song.id}

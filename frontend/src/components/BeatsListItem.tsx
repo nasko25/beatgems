@@ -17,7 +17,6 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import { TreeItem2Icon } from "@mui/x-tree-view/TreeItem2Icon";
 import { TreeItem2Provider } from "@mui/x-tree-view/TreeItem2Provider";
-import { SimpleTreeView } from "@mui/x-tree-view/SimpleTreeView";
 
 interface CustomTreeItemProps
   extends Omit<UseTreeItem2Parameters, "rootRef">,
@@ -27,7 +26,7 @@ const CustomTreeItemContent = styled(TreeItem2Content)(({ theme }) => ({
   padding: theme.spacing(0.5, 1),
 }));
 
-const BeatsListItem = React.forwardRef(function CustomTreeItem(
+export const BeatsListItem = React.forwardRef(function CustomTreeItem(
   props: CustomTreeItemProps,
   ref: React.Ref<HTMLLIElement>
 ) {
@@ -72,21 +71,3 @@ const BeatsListItem = React.forwardRef(function CustomTreeItem(
     </TreeItem2Provider>
   );
 });
-
-export default function HeadlessAPI() {
-  return (
-    <Box sx={{ minHeight: 200, minWidth: 250 }}>
-      <SimpleTreeView defaultExpandedItems={["3"]}>
-        <BeatsListItem itemId="1" label="Amelia Hart">
-          <BeatsListItem itemId="2" label="Jane Fisher" />
-        </BeatsListItem>
-        <BeatsListItem itemId="3" label="Bailey Monroe">
-          <BeatsListItem itemId="4" label="Freddie Reed" />
-          <BeatsListItem itemId="5" label="Georgia Johnson">
-            <BeatsListItem itemId="6" label="Samantha Malone" />
-          </BeatsListItem>
-        </BeatsListItem>
-      </SimpleTreeView>
-    </Box>
-  );
-}
