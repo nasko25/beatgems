@@ -65,7 +65,6 @@ const ContactForm = () => {
   };
   if (p) defaultContact.plan = p;
   const [contactInfo, setContactInfo] = useState(defaultContact);
-  console.log(contactInfo);
   useEffect(() => setSearchParams({}), [setSearchParams]);
   const stateMessage =
     "Something went wrong, please try again later in " + countdown + "...";

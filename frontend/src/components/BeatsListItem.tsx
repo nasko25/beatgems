@@ -26,6 +26,7 @@ interface CustomTreeItemProps
   extends Omit<UseTreeItem2Parameters, "rootRef" | "itemId" | "label">,
     Omit<React.HTMLAttributes<HTMLLIElement>, "onFocus"> {
   song: Song;
+  onClickCallback?: any; // TODO: type
 }
 
 const CustomTreeItemContent = styled(TreeItem2Content)(({ theme }) => ({
@@ -36,11 +37,10 @@ export const BeatsListItem = forwardRef(function CustomTreeItem(
   props: CustomTreeItemProps,
   ref: React.Ref<HTMLLIElement>
 ) {
-  const { id, disabled, children, song, ...other } = props;
+  const { id, disabled, children, song, onClickCallback, ...other } = props;
 
   const [playingSong, setPlayingSong] = useState<string | null>(null);
 
-  console.log("children of " + song.name + ": " + children);
   const {
     getRootProps,
     getContentProps,
@@ -68,9 +68,19 @@ export const BeatsListItem = forwardRef(function CustomTreeItem(
         <CustomTreeItemContent {...getContentProps()}>
           <div
             key={song.id}
-            className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-4 p-4 items-center border-b border-muted hover:bg-muted/50 w-full"
+            className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-4 p-4 items-center border-b border-muted hover:bg-muted/50 w-full select-none"
+            onClick={(e) => {
+              onClickCallback?.(e, song.id, !status.expanded);
+            }}
           >
-            <Button variant="ghost" onClick={() => togglePlay(song.id)}>
+            <Button
+              variant="ghost"
+              style={{ zIndex: 100 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                togglePlay(song.id);
+              }}
+            >
               {playingSong === song.id ? (
                 <Pause className="h-4 w-4" />
               ) : (
@@ -112,7 +122,11 @@ export const BeatsListItem = forwardRef(function CustomTreeItem(
                 <ThumbsDown className="h-4 w-4 mr-1" />
                 Dislike
               </Button> */}
-              <Button size="sm" variant="dark">
+              <Button
+                size="sm"
+                variant="dark"
+                onClick={(e) => e.stopPropagation()}
+              >
                 Improve
               </Button>
             </div>

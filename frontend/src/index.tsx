@@ -21,7 +21,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     // ensure environment variables are set
     loader: function () {
-      console.log(import.meta.env);
       if (
         !import.meta.env.VITE_SERVICE_ID ||
         !import.meta.env.VITE_TEMPLATE_ID ||
