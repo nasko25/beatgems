@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+NOTE: Apparently, due to `react-router-dom`, navigating to `/#something` urls is broken. Check out https://github.com/rafgraph/react-router-hash-link
+
 ## Available Scripts
 
 In the project directory, you can run:
