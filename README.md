@@ -17,7 +17,11 @@ Otherwise, something like https://github.com/serversideup/amplitudejs could be c
 ### TODO
 
 - [x] Fine-tune model
-- [ ] [Migrate to vite](https://coreui.io/blog/how-to-migrate-create-react-app-to-vite/)...
+- [x] [Migrate to vite](https://coreui.io/blog/how-to-migrate-create-react-app-to-vite/)...
+
+- [ ] Migrate frontend + backend to something like NestJS
+- [ ] implement server-side routing in place of `react-router-dom` (since react router has problems with navigating to html sections by id, but also client-side routing is not ideal)
+
 - [ ] Frontend beat library page
 - [ ] API
       authentication to each endpoint!
