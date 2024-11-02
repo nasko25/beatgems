@@ -34,7 +34,7 @@ export default function AudioPlayer({
   };
 
   return (
-    <div className="flex items-center space-x-4 p-4 rounded-lg">
+    <div className="flex items-center space-x-4 p-1 rounded-lg">
       <button onClick={togglePlay} aria-label={isPlaying ? "Pause" : "Play"}>
         {isPlaying ? (
           <Pause className="h-4 w-4" />
@@ -43,7 +43,6 @@ export default function AudioPlayer({
         )}
       </button>
       <div className="flex-grow" onClick={(e) => e.stopPropagation()}>
-        <h3 className="text-sm font-medium">{title}</h3>
         <WavesurferPlayer
           height={60}
           waveColor="rgba(84, 88, 171, 1)"

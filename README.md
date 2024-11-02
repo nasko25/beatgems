@@ -22,6 +22,8 @@ Otherwise, something like https://github.com/serversideup/amplitudejs could be c
 - [ ] Migrate frontend + backend to something like NestJS
 - [ ] implement server-side routing in place of `react-router-dom` (since react router has problems with navigating to html sections by id, but also client-side routing is not ideal)
 
+- [ ] label songs based on something
+      it would be useful for the beats to have names, but I don't know how I could label them programmatically (perhaps based on vibe?)
 - [ ] Frontend beat library page
 - [ ] API
       authentication to each endpoint!

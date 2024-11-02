@@ -62,11 +62,17 @@ export const BeatsListItem = forwardRef(function CustomTreeItem(
 
   return (
     <TreeItem2Provider itemId={song.id}>
-      <TreeItem2Root {...getRootProps(other)}>
-        <CustomTreeItemContent {...getContentProps()}>
+      <TreeItem2Root
+        {...getRootProps(other)}
+        style={{ backgroundColor: "#e5e7eb" }}
+      >
+        <CustomTreeItemContent
+          {...getContentProps()}
+          style={{ paddingBottom: 0, backgroundColor: "white" }}
+        >
           <div
             key={song.id}
-            className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-4 p-4 items-center border-b border-muted hover:bg-muted/50 w-full select-none"
+            className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-4 items-center border-b border-muted hover:bg-muted/50 w-full select-none"
             onClick={(e) => {
               onClickCallback?.(e, song.id, !status.expanded);
             }}

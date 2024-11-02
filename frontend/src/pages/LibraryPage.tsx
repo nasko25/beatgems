@@ -56,9 +56,10 @@ export default function LibraryPage({
         <div className="flex justify-between items-center">
           <Button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            variant="dark"
             disabled={currentPage === 1}
           >
-            <ChevronLeft className="h-4 w-4 mr-1" /> Previous
+            <ChevronLeft className="h-4 w-4 mr-1" />
           </Button>
           <span className="text-sm text-muted-foreground">
             Page {currentPage} of {totalPages}
@@ -78,6 +79,7 @@ export default function LibraryPage({
   );
 }
 
+// TODO: fetch this list from backend
 // NOTE: song id should be unique!!!
 // Mock data for demonstration
 const mockSongs: Song[] = [
