@@ -1,57 +1,8 @@
-import { Play, Pause } from "lucide-react";
-import { useState } from "react";
-
 import Button from "react-bootstrap/Button";
 
 import { Plans } from "../components/PlansSection";
-import WaveSurfer from "wavesurfer.js";
-
-import WavesurferPlayer from "@wavesurfer/react";
 import Navbar from "../components/Navbar";
-
-function AudioPlayer({ title, src }: { title: string; src: string }) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [wavesurfer, setWavesurfer] = useState<WaveSurfer | null>(null);
-
-  const togglePlay = () => {
-    if (wavesurfer) {
-      if (isPlaying) {
-        wavesurfer.pause();
-      } else {
-        wavesurfer.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
-  const onReady = (ws: WaveSurfer) => {
-    setWavesurfer(ws);
-    setIsPlaying(false);
-  };
-
-  return (
-    <div className="flex items-center space-x-4 p-4 rounded-lg">
-      <button onClick={togglePlay} aria-label={isPlaying ? "Pause" : "Play"}>
-        {isPlaying ? (
-          <Pause className="h-4 w-4" />
-        ) : (
-          <Play className="h-4 w-4" />
-        )}
-      </button>
-      <div className="flex-grow">
-        <h3 className="text-sm font-medium">{title}</h3>
-        <WavesurferPlayer
-          height={60}
-          waveColor="rgba(84, 88, 171, 1)"
-          url={src}
-          onReady={onReady}
-          onPlay={() => setIsPlaying(true)}
-          onPause={() => setIsPlaying(false)}
-        />
-      </div>
-    </div>
-  );
-}
+import AudioPlayer from "../components/AudioPlayer";
 
 export default function HomePage() {
   return (

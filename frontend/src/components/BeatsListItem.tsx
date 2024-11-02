@@ -15,12 +15,10 @@ import {
   TreeItem2Checkbox,
 } from "@mui/x-tree-view/TreeItem2";
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
 import { TreeItem2Icon } from "@mui/x-tree-view/TreeItem2Icon";
 import { TreeItem2Provider } from "@mui/x-tree-view/TreeItem2Provider";
 import Song from "./Song";
-import zIndex from "@mui/material/styles/zIndex";
+import AudioPlayer from "./AudioPlayer";
 
 interface CustomTreeItemProps
   extends Omit<UseTreeItem2Parameters, "rootRef" | "itemId" | "label">,
@@ -73,38 +71,16 @@ export const BeatsListItem = forwardRef(function CustomTreeItem(
               onClickCallback?.(e, song.id, !status.expanded);
             }}
           >
-            <Button
-              variant="ghost"
-              style={{ zIndex: 100 }}
-              onClick={(e) => {
-                e.stopPropagation();
-                togglePlay(song.id);
-              }}
-            >
-              {playingSong === song.id ? (
-                <Pause className="h-4 w-4" />
-              ) : (
-                <Play className="h-4 w-4" />
-              )}
-            </Button>
-            <svg className="w-auto h-12" viewBox="0 0 100 20">
-              {song.waveform.map((value, index) => (
-                <rect
-                  key={index}
-                  x={index * 2}
-                  y={10 - value / 2}
-                  width="1"
-                  height={value}
-                  fill="currentColor"
-                  className="text-primary"
-                />
-              ))}
-            </svg>
+            <div className="w-96">
+              <AudioPlayer title={song.name} src={song.url} />
+            </div>
             {/* <div className="font-medium">{song.name}</div> */}
             {/* should somehow be able to indicate which beats have a very good human-created beat.
             Maybe instead of plays this number could be next to the dropdown arrow and could indicate how liked the beats originating
             from this AI beat are? Maybe like a sum => higher is better. And could be sorted based on that. */}
-            <div className="text-sm text-muted-foreground">{song.plays}</div>
+            <div className="text-sm text-muted-foreground ml-auto">
+              {song.plays}
+            </div>
             <div className="flex space-x-2">
               {/* <Button
                 size="sm"

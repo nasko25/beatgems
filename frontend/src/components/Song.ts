@@ -2,7 +2,7 @@ export default interface Song {
   id: string;
   name: string;
   plays: number;
-  waveform: number[];
+  url: string;
   expanded?: boolean;
   similarSongs: Song[];
 }
