@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -22,7 +22,6 @@ import Song from "../components/Song";
 // } from "@/components/ui/collapsible";
 
 export default function LibraryPage({
-  songs = mockSongs,
   pageSize = 10,
 }: {
   songs?: Song[];
@@ -31,6 +30,7 @@ export default function LibraryPage({
   const [currentPage, setCurrentPage] = useState(1);
   const [likes, setLikes] = useState<Record<string, boolean>>({});
   const [dislikes, setDislikes] = useState<Record<string, boolean>>({});
+  const [songs, setSongs] = useState<Song[]>([]);
 
   const totalPages = Math.ceil(songs.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
@@ -45,6 +45,14 @@ export default function LibraryPage({
     setDislikes((prev) => ({ ...prev, [id]: !prev[id] }));
     setLikes((prev) => ({ ...prev, [id]: false }));
   };
+
+  // fetch song info
+  useEffect(() => {
+    // TODO: url
+    fetch("http://localhost:8080/songs").then(async (response) =>
+      setSongs(await response.json())
+    );
+  });
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -78,31 +86,3 @@ export default function LibraryPage({
     </div>
   );
 }
-
-// TODO: fetch this list from backend
-// NOTE: song id should be unique!!!
-// Mock data for demonstration
-const mockSongs: Song[] = [
-  {
-    id: "1",
-    name: "Sunset Serenade",
-    plays: 1234,
-    url: "/tmpf1u8uoge.wav",
-    similarSongs: [
-      {
-        id: "1a",
-        name: "Moonlight Sonata",
-        plays: 0,
-        url: "/tmpf1u8uoge.wav",
-        similarSongs: [],
-      },
-    ],
-  },
-  {
-    id: "2",
-    name: "Urban Rhythm",
-    plays: 5678,
-    url: "/temp2.wav",
-    similarSongs: [],
-  },
-];
