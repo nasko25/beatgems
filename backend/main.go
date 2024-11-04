@@ -66,8 +66,65 @@ func handleSongs(w http.ResponseWriter, r *http.Request) {
 			Plays:        "5678",
 			URL:          "/temp2.wav",
 			SimilarSongs: []song.Song{},
-		}}
-	// songs[0] = song.Song{URL: "ayo"}
+		},
+		{
+			ID:           "3",
+			Name:         "Full",
+			Plays:        "2",
+			URL:          "/beat0_0.wav",
+			SimilarSongs: []song.Song{},
+		},
+		{
+			ID:           "4",
+			Name:         "Full",
+			Plays:        "2",
+			URL:          "/beat0_1.wav",
+			SimilarSongs: []song.Song{},
+		},
+		{
+			ID:           "5",
+			Name:         "Full",
+			Plays:        "2",
+			URL:          "/beat0_2.wav",
+			SimilarSongs: []song.Song{},
+		},
+		{
+			ID:           "6",
+			Name:         "Full",
+			Plays:        "2",
+			URL:          "/beat1_1.wav",
+			SimilarSongs: []song.Song{},
+		},
+		{
+			ID:           "7",
+			Name:         "Full",
+			Plays:        "4",
+			URL:          "/beat1_2.wav",
+			SimilarSongs: []song.Song{},
+		},
+		{
+			ID:           "8",
+			Name:         "Full",
+			Plays:        "6",
+			URL:          "/beat2_0.wav",
+			SimilarSongs: []song.Song{},
+		},
+		{
+			ID:           "9",
+			Name:         "Full",
+			Plays:        "6",
+			URL:          "/beat2_1.wav",
+			SimilarSongs: []song.Song{},
+		},
+		{
+			ID:           "10",
+			Name:         "Full",
+			Plays:        "6",
+			URL:          "/beat2_2.wav",
+			SimilarSongs: []song.Song{},
+		},
+	}
+
 	response, err := json.Marshal(songs)
 
 	if err != nil {

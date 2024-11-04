@@ -72,3 +72,11 @@ input:focus, textarea:focus {
       gap: 1rem;
   }
 }
+
+.close-button:focus {
+  box-shadow: 0 0 0 0.1rem #bcbcc3 !important;
+}
+
+.close-button:hover:focus {
+  box-shadow: 0 0 0 0.1rem #8a8a8c !important;
+}
