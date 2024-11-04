@@ -44,6 +44,7 @@ export default function AudioPlayer({
       </button>
       <div className="flex-grow" onClick={(e) => e.stopPropagation()}>
         <WavesurferPlayer
+          dragToSeek={true}
           height={60}
           waveColor="rgba(84, 88, 171, 1)"
           url={src}
