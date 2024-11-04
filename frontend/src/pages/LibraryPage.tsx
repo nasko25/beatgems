@@ -52,7 +52,7 @@ export default function LibraryPage({
     fetch("http://localhost:8080/songs").then(async (response) =>
       setSongs(await response.json())
     );
-  });
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
