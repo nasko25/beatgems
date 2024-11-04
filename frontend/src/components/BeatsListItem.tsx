@@ -72,12 +72,12 @@ export const BeatsListItem = forwardRef(function CustomTreeItem(
         >
           <div
             key={song.id}
-            className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-4 items-center border-b border-muted hover:bg-muted/50 w-full select-none"
+            className="grid grid-cols-[1fr_auto_auto_auto_auto] song-item items-center border-b border-muted hover:bg-muted/50 w-full select-none"
             onClick={(e) => {
               onClickCallback?.(e, song.id, !status.expanded);
             }}
           >
-            <div className="w-96">
+            <div className="w-full max-w-96">
               <AudioPlayer title={song.name} src={song.url} />
             </div>
             {/* <div className="font-medium">{song.name}</div> */}

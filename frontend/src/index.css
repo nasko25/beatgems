@@ -62,3 +62,13 @@ input:focus, textarea:focus {
 #coming-soon-msg {
   height: calc(100vh - 3.5rem)
 }
+
+.song-item {
+  gap: 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .song-item {
+      gap: 1rem;
+  }
+}
