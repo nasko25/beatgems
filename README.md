@@ -19,18 +19,22 @@ Otherwise, something like https://github.com/serversideup/amplitudejs could be c
 - [x] Fine-tune model
 - [x] [Migrate to vite](https://coreui.io/blog/how-to-migrate-create-react-app-to-vite/)...
 
-- [ ] Migrate frontend + backend to something like NestJS
-- [ ] implement server-side routing in place of `react-router-dom` (since react router has problems with navigating to html sections by id, but also client-side routing is not ideal)
+- [ ] ~~Migrate frontend + backend to something like NestJS~~
+- [ ] ~~implement server-side routing in place of `react-router-dom` (since react router has problems with navigating to html sections by id, but also client-side routing is not ideal)~~
+      fixed this using client-side React hook
+      I am still not convinced client-side routing is a good idea, but it is okay for now
 
 - [ ] label songs based on something
       it would be useful for the beats to have names, but I don't know how I could label them programmatically (perhaps based on vibe?)
-- [ ] Frontend beat library page
+- [x] Frontend beat library page
+- [ ] Implement the upload similar song file functionality
 - [ ] API
       authentication to each endpoint!
 
 After having a working UI and audio files:
 
 - [ ] File download on demand (on playing selected audio file)
+- [ ] Extract wave information from songs and save it to be fetched by the wavesurfer player
 
 And only after that focus on:
 
