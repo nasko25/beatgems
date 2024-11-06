@@ -71,7 +71,7 @@ func handleSongs(w http.ResponseWriter, r *http.Request) {
 			ID:           "3",
 			Name:         "Full",
 			Plays:        "2",
-			URL:          "/beat0_0.wav",
+			URL:          "http://localhost:8080/beat/beat0_0.wav",
 			SimilarSongs: []song.Song{},
 		},
 		{
@@ -136,9 +136,19 @@ func handleSongs(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, string(response))
 }
 
+func addAccessControlHeader(fs http.Handler) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Add("Access-Control-Allow-Origin", "http://localhost:3000")
+		fs.ServeHTTP(w, r)
+	}
+}
+
 func main() {
 	log.Println("Backend running...")
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/songs", handleSongs)
+
+	fileServer := http.FileServer(http.Dir("./beats/"))
+	http.Handle("GET /beat/", addAccessControlHeader(http.StripPrefix("/beat", fileServer)))
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
